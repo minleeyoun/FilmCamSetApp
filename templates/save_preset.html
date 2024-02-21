@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Save
+{% endblock %}
+
+{% block main %}
+<form action="/save" method="post">
+<div class="card w-75 mb-3 mx-auto">
+    <div class="card-body">
+        <h5 class="card-title">Your preset</h5>
+        <p class="card-text">There are your conditions and calculated camera settings:</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Type of photo: {{ phototype }}</li>
+      <li class="list-group-item">Weather or lighting conditions: {{ weather }}</li>
+      <li class="list-group-item">Effect: {{ purpose }}</li>
+      <li class="list-group-item">Special condition: {{ condition }}</li>
+      <input type="hidden" name="phototype" value="{{ phototype }}">
+      <input type="hidden" name="weather" value="{{ weather }}">
+      <input type="hidden" name="purpose" value="{{ purpose }}">
+      <input type="hidden" name="condition" value="{{ condition }}">
+      <li class="list-group-item">
+        <label for="apertureSelect" class="form-label">Your aperture: {{ aperture }}</label>
+        <select id="apertureSelect" class="form-select mx-auto w-auto" name="aperture">
+            <option value="{{ aperture }}">Calculated aperture</option>
+
+            {% for i in range(0, aperture_table|length) %}
+                <option value="{{ aperture_table[i] }}">{{ aperture_table[i] }}</option>
+            {% endfor %}
+            </select>
+            <div class="form-text" id="basic-addon4">You can change aperture for your own preset</div>
+      </li>
+      <li class="list-group-item">
+        <label for="apertureSelect" class="form-label">Your shutter speed: {{ speed }}</label>
+        <select id="apertureSelect" class="form-select mx-auto w-auto" name="speed">
+            <option value="{{ speed }}">Calculated shutter speed</option>
+
+            {% for i in range(0, speed_table|length) %}
+                <option value="{{ speed_table[i] }}">{{ speed_table[i] }}</option>
+            {% endfor %}
+            </select>
+            <div class="form-text" id="basic-addon4">You can change shutter speed for your own preset</div>
+      </li>
+      <li class="list-group-item">
+        <div class="input-group">
+            <span class="input-group-text">You can add your notes here</span>
+            <textarea class="form-control"  name="notes" aria-label="With textarea"></textarea>
+        </div>
+      </li>
+    </ul>
+    <div class="card-body">
+        <a href="/" class="btn btn-outline-primary">Return to calculator</a>
+        <button class="btn btn-outline-primary" type="submit">Save the preset</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

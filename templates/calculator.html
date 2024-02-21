@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Calculate
+{% endblock %}
+
+{% block main %}
+
+<div class="card w-75 mb-3 mx-auto" style="margin-top: 60px;>
+    <div class="card-body">
+        <form action="/" method="post">
+            <div class="mb-3">
+                <label for="firstSelect" class="form-label">Select type of photo:</label>
+                <select id="firstSelect" onchange="toggleSecondSelect()" class="form-select mx-auto w-auto" name="phototype">
+                    <option disabled selected>Type</option>
+                    <option value="Street">Regular street photo</option>
+                    <option value="Landscape">Landscape</option>
+                    <option value="Portrait">Portrait</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="weatherSelect" class="form-label">Select weather or lighting conditions:</label>
+                <select class="form-select mx-auto w-auto" name="weather">
+                    <option disabled selected>Weather</option>
+
+                    {% for i in range(0, weather|length) %}
+                        <option value="{{ weather[i] }}">{{ weather[i] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label id="purposeLabel" for="purposeSelect">Select the effect you want to achieve:</label>
+                <select id="purposeSelect" class="form-select mx-auto w-auto" name="purpose">
+                    <option disabled selected>Effect</option>
+
+                    {% for i in range(0, purpose|length) %}
+                        <option value="{{ purpose[i] }}">{{ purpose[i] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label id="secondLabel" for="secondSelect" class="form-label hidden">Select special condition:</label>
+                <select id="secondSelect" class="form-select mx-auto w-auto hidden" name="condition">
+                    <option disabled selected>Special condition</option>
+                    <option value="Freeze mooving objects">Freeze mooving objects</option>
+                    <option value="Low light or sunset without shadows">Low light or sunset without shadows</option>
+                    <option value="Motion blur or artistic lights">Motion blur or artistic lights</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label id="isoLabel" for="secondSelect" class="form-label hidden">Your film speed ISO:</label>
+                <select id="isoSelect" class="form-select mx-auto w-auto" name="iso">
+                    <option disabled selected>ISO</option>
+                    <option value="200">200 or lower</option>
+                    <option value="400">400 or higher</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Calculate</button>
+        </form>
+    </div>
+</div>
+
+<div class="card  w-75 mb-3 mx-auto" style="padding-bottom: 50px;">
+    <div class="card-body">
+        This app will be especially useful for beginners who struggling with understanding the concepts of film camera settings.
+        You can make photos of decent quality even with no prior experience in film photography!
+        Improve your skills as a photographer by taking notes in the app and reviewing saved presets.
+    </div>
+  </div>
+
+<script>
+    function toggleSecondSelect() {
+        var firstSelect = document.getElementById('firstSelect');
+        var secondSelect = document.getElementById('secondSelect');
+        var secondLabel = document.getElementById('secondLabel');
+        var purposeSelect = document.getElementById('purposeSelect');
+        var purposeLabel = document.getElementById('purposeLabel');
+
+        if (firstSelect.value === 'Landscape' || firstSelect.value === 'Portrait') {
+            secondSelect.classList.remove('hidden');
+            secondLabel.classList.remove('hidden');
+            purposeSelect.classList.add('hidden');
+            purposeLabel.classList.add('hidden');
+        } else {
+            secondSelect.classList.add('hidden');
+            secondLabel.classList.add('hidden');
+            purposeSelect.classList.remove('hidden');
+            purposeLabel.classList.remove('hidden');
+        }
+    }
+
+    function validateForm() {
+        // Check if 1, 2 and 3 or 4 selected
+        var selectedType1 = document.getElementById("firstSelect").value;
+        var selectedType2 = document.getElementById("weatherSelect").value;
+        var selectedType3 = document.getElementById("purposeSelect").value;
+        var selectedType4 = document.getElementById("secondSelect").value;
+        var selectedType5 = document.getElementById("isoSelect").value;
+
+        if (selectedType1 === "") {
+            alert("Select photo type!");
+        } else  if (selectedType2 === "") {
+            alert("Select lightning conditions!");
+        } else if (selectedType3 === "" || selectedType4 === "") {
+            alert("All avilable fields must be selected!");
+        } else if (selectedType5 === "") {
+            alert("Select your film speed!");
+        } else {
+            document.getElementById("photoForm").submit();
+        }
+    }
+</script>
+
+{% endblock %}

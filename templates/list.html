@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    List of presets
+{% endblock %}
+
+{% block main %}
+
+<div class="card w-75 mb-3 mx-auto" style="margin-top: 60px;">
+    <form action="/list" method="post" class="row row-cols-lg-auto g-3 align-items-center">
+        <label for="firstSelect" class="form-label">Select by type of photo:</label>
+        <select class="form-select mx-auto w-auto" name="phototype">
+            <option value="all">All types</option>
+            <option value="street">Regular street photo</option>
+            <option value="Landscape">Landscape</option>
+            <option value="Portrait">Portrait</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Select</button>
+    </form>
+</div>
+
+    {% for i in range(0, phototype|length) %}
+        <div class="card w-75 mb-3 mx-auto" style="text-align: left;">
+            <h5 class="card-header">{{ phototype[i] }}</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{ weather[i] }}</h5>
+                <p class="card-text">{{ purpose[i] }}, {{ condition[i] }}</p>
+                <p class="card-text">Aperture: {{ aperture[i] }}, shutter speed: {{ speed[i] }}</p>
+                <p class="card-text">Notes: {{ notes[i] }}</p>
+                <p class="card-text">{{ date[i] }} | {{ time[i] }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+{% endblock %}

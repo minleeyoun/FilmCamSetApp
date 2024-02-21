@@ -1,0 +1,37 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+nav .navbar-brand .blue
+{
+    color: #3795e8;
+    font-family:  Helvetica;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.card
+{
+    padding: 20px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.list-group-item {
+    backdrop-filter: blur(5px);
+}
+
